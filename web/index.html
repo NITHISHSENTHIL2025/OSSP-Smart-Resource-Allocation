@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Banker OS — Resource Intelligence</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">B<span>.</span></div><div class="brand-word"><b>BANKER OS</b><small>RESOURCE INTELLIGENCE</small></div></div>
+    <div class="side-label">WORKSPACE</div>
+    <button class="nav active" data-go="overview"><span class="navicon">▦</span> Overview</button>
+    <button class="nav" data-go="matrices"><span class="navicon">▤</span> Resource matrices</button>
+    <button class="nav" data-go="transactions"><span class="navicon">↗</span> Transactions</button>
+    <button class="nav" data-go="activity"><span class="navicon">◷</span> Activity log</button>
+    <div class="side-divider"></div>
+    <div class="side-label">YOUR DATA</div>
+    <button class="nav" id="exportSide"><span class="navicon">↓</span> Export workspace</button>
+    <button class="nav" id="importSide"><span class="navicon">↑</span> Import workspace</button>
+    <input type="file" accept="application/json,.json" id="importFile" hidden>
+    <div class="side-bottom"><div class="run-indicator"><span class="run-dot"></span> Local • Running</div><div class="side-foot">Linux C algorithm engine<br>OSSP Hackathon · 2026</div></div>
+  </aside>
+  <div class="main">
+    <header class="topbar"><div class="breadcrumbs"><span>OSSP HACKATHON</span><b>/</b><strong>Banker's Algorithm</strong></div><div class="top-right"><span class="secure-pill">◉ Local & private</span><div class="team-chip">G13</div></div></header>
+    <div class="content">
+      <div class="heading-row"><div><div class="eyebrow">RESOURCE MANAGEMENT ENGINE <span class="small-circle"></span> PROBLEM 13</div><h1>Resource intelligence<span class="title-dot">.</span></h1><p class="lead">See every allocation. Understand every decision. Prevent unsafe resource states.</p></div><button id="newWorkspace" class="btn btn-outline" hidden>＋ New workspace</button></div>
+      <div id="setupView">
+        <section class="card setup-card"><div class="step-tag">STEP 01 / CREATE YOUR WORKSPACE</div><div class="section-heading"><div><h2>Start with your own data</h2><p>No preset matrices or automatic demo inputs. You control every number.</p></div><span class="icon-square">⌘</span></div>
+          <div class="input-grid"><label>Workspace name<input id="titleInput" placeholder="e.g. Resource allocation scenario A" maxlength="80"></label><label>Number of processes<input type="number" id="nInput" min="1" max="20" value="5"></label><label>Resource types<input type="number" id="mInput" min="1" max="10" value="3"></label></div>
+          <div class="data-divider"><span>AVAILABLE VECTOR</span><span>Enter free units for each resource</span></div><div id="availableInputs" class="vector-inputs"></div>
+          <div class="data-divider"><span>ALLOCATION MATRIX</span><span>Units already assigned to each process</span></div><div class="table-scroll"><table class="edit-table" id="allocationInputTable"></table></div>
+          <div class="data-divider"><span>MAXIMUM MATRIX</span><span>Maximum claim of every process</span></div><div class="table-scroll"><table class="edit-table" id="maximumInputTable"></table></div>
+          <div class="setup-actions"><p><b>Important</b> · The C engine validates every matrix, then computes Need and checks the safety state.</p><button class="btn btn-primary" id="createWorkspace">Initialize workspace <span>→</span></button></div>
+        </section>
+        <div class="setup-note"><span class="green-circle">✓</span><div><b>Built for transparent decisions</b><p>All resource checks run through the compiled Linux C Banker's Algorithm library. No hardcoded output.</p></div></div>
+      </div>
+      <div id="dashboard" hidden>
+        <section class="overview-stats" id="overview"><div class="metric metric-dark"><div class="metric-top"><span>SAFETY STATUS</span><span class="metric-symbol">◎</span></div><div class="metric-value" id="safeStatus">—</div><div class="metric-bottom" id="safeNote">Latest evaluation</div></div><div class="metric"><div class="metric-top"><span>PROCESSES</span><span class="metric-symbol">≡</span></div><div class="metric-value" id="processMetric">—</div><div class="metric-bottom">Currently modeled</div></div><div class="metric"><div class="metric-top"><span>RESOURCE TYPES</span><span class="metric-symbol">◈</span></div><div class="metric-value" id="resourceMetric">—</div><div class="metric-bottom">Independent resource pools</div></div><div class="metric"><div class="metric-top"><span>OPERATIONS</span><span class="metric-symbol">↗</span></div><div class="metric-value" id="operationsMetric">—</div><div class="metric-bottom">Recorded in this workspace</div></div></section>
+        <div class="two-col"><section class="card safe-card"><div class="section-heading compact"><div><div class="step-tag">CURRENT EXECUTION PATH</div><h2>Safety verification</h2></div><div id="safeBadge" class="pill positive">—</div></div><p id="safetyExplanation" class="muted">The safety algorithm uses the current input to find a safe sequence.</p><div id="sequence" class="sequence"></div><div class="detail-steps" id="safetySteps"></div></section>
+        <section class="card resource-card"><div class="section-heading compact"><div><div class="step-tag">RESOURCE BALANCE</div><h2>Available vs. total</h2></div><span class="icon-square">▥</span></div><div id="resourceBars"></div><div class="hint">The available vector changes only after a successful request or release.</div></section></div>
+        <section class="card table-card" id="matrices"><div class="section-heading compact"><div><div class="step-tag">LIVE DATA MODEL</div><h2>Process allocation matrix</h2><p>All values below come directly from your workspace.</p></div><button class="btn btn-quiet" id="downloadSnapshot">↓ Export JSON</button></div><div class="table-scroll"><table class="matrix-table" id="liveMatrix"></table></div></section>
+        <div class="two-col actions-row" id="transactions"><section class="card action-card"><div class="action-icon purple">↗</div><div class="section-heading compact"><div><h2>Request resources</h2><p>Test a new allocation. Unsafe changes are rolled back automatically.</p></div></div><label class="field-label">Requesting process</label><select id="requestPid"></select><div id="requestVector" class="vector-inputs transaction-vector"></div><button id="submitRequest" class="btn btn-primary action-submit">Check & request <span>→</span></button></section>
+        <section class="card action-card"><div class="action-icon teal">↙</div><div class="section-heading compact"><div><h2>Release resources</h2><p>Return resources currently held by a selected process.</p></div></div><label class="field-label">Releasing process</label><select id="releasePid"></select><div id="releaseVector" class="vector-inputs transaction-vector"></div><button id="submitRelease" class="btn btn-dark action-submit">Release resources <span>→</span></button></section></div>
+        <section class="card activity-card" id="activity"><div class="section-heading compact"><div><div class="step-tag">AUDIT TRAIL</div><h2>Activity timeline</h2></div><span class="icon-square">◷</span></div><div id="historyList"></div></section>
+        <div class="bottom-bar"><span>© 2026 Banker OS · G-13 · Local demonstration</span><span>Architecture: HTML / Python local API / C Banker's engine</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="/app.js"></script>
+</body>
+</html>

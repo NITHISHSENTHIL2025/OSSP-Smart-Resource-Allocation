@@ -1,0 +1,86 @@
+{
+  "state": {
+    "title": "Viveksssssssss",
+    "n": 5,
+    "m": 3,
+    "available": [
+      2,
+      3,
+      1
+    ],
+    "allocation": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        3,
+        0,
+        2
+      ],
+      [
+        3,
+        0,
+        2
+      ],
+      [
+        2,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        2
+      ]
+    ],
+    "maximum": [
+      [
+        7,
+        5,
+        3
+      ],
+      [
+        3,
+        2,
+        2
+      ],
+      [
+        9,
+        0,
+        2
+      ],
+      [
+        2,
+        2,
+        2
+      ],
+      [
+        4,
+        3,
+        3
+      ]
+    ]
+  },
+  "history": [
+    {
+      "time": "05:34:02",
+      "kind": "RELEASE",
+      "message": "DENIED | P0 release [1, 0, 1]: Denied: P0 holds only 0 units of R1, cannot release 1.",
+      "good": false
+    },
+    {
+      "time": "05:33:52",
+      "kind": "REQUEST",
+      "message": "GRANTED | P1 request [1, 0, 1]: Request approved. The resulting state is SAFE.",
+      "good": true
+    },
+    {
+      "time": "05:24:45",
+      "kind": "WORKSPACE",
+      "message": "Entered custom dataset: Viveksssssssss",
+      "good": true
+    }
+  ]
+}
